@@ -1,0 +1,7 @@
+user.name.absent= Name is null or Blank;
+user.email.absent= Email is null or Blank;
+user.password.absent= Password is null or Blank;
+user.password.invalid=Password is invalid
+user.email.invalid= Email is Invalid;
+user.email.exists=Email already exists;
+user.email.absent= Email is Absent;

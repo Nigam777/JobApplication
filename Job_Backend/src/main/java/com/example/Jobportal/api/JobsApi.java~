@@ -1,0 +1,72 @@
+package com.example.Jobportal.api;
+import com.example.Jobportal.dto.ApplicantDTO;
+import com.example.Jobportal.dto.Application;
+import com.example.Jobportal.dto.JobDTO;
+import com.example.Jobportal.dto.ResponseDTO;
+import com.example.Jobportal.exception.JobPortalException;
+import com.example.Jobportal.service.JobService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin
+@Validated
+@RequestMapping("/jobs")
+public class JobsApi {
+    @Autowired
+    private JobService jobService;
+
+    @GetMapping("/findJob/{id}")
+    public ResponseEntity<JobDTO> getJob(@PathVariable Long id) throws JobPortalException {
+        JobDTO jobDTO = jobService.getJob(id);
+        return new ResponseEntity<>(jobDTO, HttpStatus.OK);
+    }
+    @PostMapping("/postJob")
+    public ResponseEntity<JobDTO>postJob(@RequestBody JobDTO jobDTO)  throws  JobPortalException{
+
+        return new ResponseEntity<>(jobService.postJob(jobDTO), HttpStatus.CREATED);
+    }
+    @GetMapping("/allJobs")
+    public ResponseEntity<List<JobDTO>> getAllJobs() throws JobPortalException {
+        return new ResponseEntity<>(jobService.getAllJobs(), HttpStatus.OK);
+    }
+    @PostMapping("/applyJob/{id}")
+    public ResponseEntity<ResponseDTO> applyJob(@PathVariable Long id, @RequestBody ApplicantDTO applicantDTO) throws JobPortalException {
+        jobService.applyJob(id, applicantDTO);
+        return new ResponseEntity<>(new ResponseDTO("Job applied successfully"), HttpStatus.OK);
+    }
+    @GetMapping("/postBy/{id}")
+    public ResponseEntity<List<JobDTO>> postBy(@PathVariable Long id) throws JobPortalException {
+        return new ResponseEntity<>(jobService.postByJob(id), HttpStatus.OK);
+    }
+
+    @PostMapping("changeAppStatus")
+    public ResponseEntity<ResponseDTO> changeStatus(@RequestBody Application application) throws JobPortalException {
+        jobService.changeAppliedStatus(application);
+        return new ResponseEntity<>(new ResponseDTO("Job status changed successfully"), HttpStatus.OK);
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

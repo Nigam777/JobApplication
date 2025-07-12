@@ -1,0 +1,10 @@
+package com.example.Jobportal.dto;
+
+public enum AccountType {
+    APPLICANT,
+    EMPLOYER
+}
+public enum JobStatus {
+    OPEN,
+    CLOSED
+}

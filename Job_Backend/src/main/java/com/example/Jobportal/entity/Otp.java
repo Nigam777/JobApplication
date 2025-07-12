@@ -1,0 +1,22 @@
+package com.example.Jobportal.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDateTime;
+
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection = "Otp")
+public class Otp {
+    private String otp;
+    @Id
+    private String email;
+    private LocalDateTime creationTime;
+
+}
